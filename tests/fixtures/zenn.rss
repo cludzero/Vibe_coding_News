@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Zenn</title>
+<item><title>Claude Code で請求書の自動化を作ってみた</title><link>https://zenn.dev/a/articles/invoice?utm_source=rss</link><pubDate>Wed, 23 Sep 2026 09:46:20 GMT</pubDate><dc:creator>a</dc:creator><description>&lt;p&gt;経理の請求書 PDF を抽出して検証した&lt;/p&gt;</description></item>
+<item><title>Claude Code 入門まとめ</title><link>https://zenn.dev/b/articles/intro</link><pubDate>Tue, 22 Sep 2026 01:00:00 GMT</pubDate><description>基本の解説</description></item>
+<item><title>古い記事：在庫管理を自動化</title><link>https://zenn.dev/c/articles/old</link><pubDate>Fri, 04 Sep 2026 01:00:00 GMT</pubDate><description>在庫 発注 の自動化</description></item>
+<item><title>かなり古い記事</title><link>https://zenn.dev/d/articles/tooold</link><pubDate>Mon, 03 Aug 2026 01:00:00 GMT</pubDate><description>在庫</description></item>
+</channel></rss>
