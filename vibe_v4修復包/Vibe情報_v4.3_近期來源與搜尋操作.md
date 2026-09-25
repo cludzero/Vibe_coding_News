@@ -14,7 +14,7 @@
 | 4 | DEV #claudecode | `https://dev.to/feed/tag/claudecode` | 02 12 |
 | 5 | DEV #agents | `https://dev.to/feed/tag/agents` | 08 13 |
 | 6 | Medium claude-code | `https://medium.com/feed/tag/claude-code` | 02 |
-| 7 | Medium notebooklm | `https://medium.com/feed/tag/notebooklm` | 10 |
+| 7 | HN Gemini Notebook（新名）＋ Medium notebooklm（舊名標籤） | `https://hn.algolia.com/api/v1/search_by_date?tags=story&query=Gemini%20Notebook&numericFilters=created_at_i>{epoch}`；`https://medium.com/feed/tag/notebooklm` | 10 |
 | 8 | Simon Willison | `https://simonwillison.net/atom/everything/` | 01 02 06 09 11 12 |
 | 9 | Cursor 論壇 Built with Cursor | `https://forum.cursor.com/c/showcase/built-with-cursor/18/l/latest.json` | 04 05 |
 | 10 | n8n 社群 Built with n8n | `https://community.n8n.io/c/built-with-n8n/l/latest.json` | 13 |
@@ -39,7 +39,7 @@ epoch 用 Python 算：`int((reference_time - timedelta(hours=168)).timestamp())
 | 07 資料分析／教材 | Towards Data Science、Streamlit Show the Community、DEV #datascience | Zenn／Qiita `データ分析` | `towardsdatascience.com`、`discuss.streamlit.io`、`kaggle.com`、`medium.com` |
 | 08 Agent 可靠性 | HN `agent`、DEV #agents、Medium ai-agents、Armin Ronacher、Lobsters #ai | Zenn aiagent、Qiita AIエージェント | `dev.to`、`medium.com`、`github.com` |
 | 09 視覺與多媒體 | HN `image generation`、Medium comfyui、Hugging Face Blog、XDA／MakeUseOf、Simon Willison | Qiita 画像生成、Zenn、`note.com` | `civitai.com/articles`、`medium.com`、`dev.to`、`note.com` |
-| 10 NotebookLM／研讀學習 | XDA、MakeUseOf、How-To Geek、Medium notebooklm、One Useful Thing、DEV #notebooklm、HN `NotebookLM` | Zenn notebooklm／gemini、`note.com` | `xda-developers.com`、`makeuseof.com`、`medium.com`、`substack.com`、`note.com` |
+| 10 Gemini Notebook（原 NotebookLM）／研讀學習 | HN `Gemini Notebook`＋`NotebookLM`、XDA、MakeUseOf、How-To Geek、Medium gemini-notebook／notebooklm、One Useful Thing、DEV #gemininotebook／#notebooklm | Zenn gemininotebook／notebooklm／gemini、Qiita GeminiNotebook／NotebookLM、`note.com` | `xda-developers.com`、`makeuseof.com`、`medium.com`、`substack.com`、`note.com`（查詢寫 `"Gemini Notebook" OR NotebookLM`） |
 | 11 MCP／瀏覽器 | HN `MCP`、DEV #mcp、Cursor 論壇 Built for Cursor、GitHub topic:mcp-server | Qiita MCP（v4.2 已成功）、Zenn mcp | `dev.to`、`github.com`、`medium.com` |
 | 12 Skills／Plugins | GitHub topic:claude-skills、HN `Claude Code`、DEV #claudecode、Cursor 論壇 Built for Cursor | Zenn claudecode、Qiita ClaudeCode | `github.com`、`dev.to` |
 | 13 業務場域 | n8n Built with n8n、Show HN（30 天）、DEV #n8n #automation #agents、Medium n8n ai-agents、Towards Data Science、GitHub topic:ai-agent | Qiita 業務効率化／n8n／AIエージェント、Zenn n8n／dify／aiagent、Qiita API | `community.n8n.io`、`dev.to`、`medium.com`、`github.com`、`zenn.dev`、`qiita.com` |
@@ -48,7 +48,7 @@ epoch 用 Python 算：`int((reference_time - timedelta(hours=168)).timestamp())
 
 **HN Algolia（英文發現主力）**
 - Show HN（168h）：`https://hn.algolia.com/api/v1/search_by_date?tags=show_hn&hitsPerPage=200&numericFilters=created_at_i>{epoch}`
-- 主題（168h）：`https://hn.algolia.com/api/v1/search_by_date?tags=story&query=NotebookLM&numericFilters=created_at_i>{epoch}`
+- 主題（168h）：`https://hn.algolia.com/api/v1/search_by_date?tags=story&query=Gemini%20Notebook&numericFilters=created_at_i>{epoch}`（舊名 `NotebookLM` 另查一次）
 - 關鍵字要短（1–2 個詞）；多個詞之間是 AND。hit 沒有 `url` 時就是 HN 自己的文章，用 `https://news.ycombinator.com/item?id=<objectID>`。
 
 **Qiita API（日文，可帶日期條件）**
@@ -65,7 +65,7 @@ epoch 用 Python 算：`int((reference_time - timedelta(hours=168)).timestamp())
 - 分類網址 404 時，先讀 `<站台>/categories.json` 找正確的 slug 與 id。
 
 **一般搜尋（缺額補查）**
-- 格式：`site:<網域> <工具> <任務> <成果詞>`，例如 `site:xda-developers.com NotebookLM "I used"`、`site:community.n8n.io invoice workflow built`。
+- 格式：`site:<網域> <工具> <任務> <成果詞>`，例如 `site:xda-developers.com "Gemini Notebook" "I used"`、`site:community.n8n.io invoice workflow built`。
 - 加上 `-"top 10" -"best prompts" -"ultimate guide"` 排除清單文。
 - 日期用工具的篩選參數，不寫在查詢字串裡。
 
@@ -74,7 +74,7 @@ epoch 用 Python 算：`int((reference_time - timedelta(hours=168)).timestamp())
 - **Reddit**：v4.2 兩輪都在 web_fetch 封鎖清單上，`sources_v4.3.json` 預設停用；不繞過封鎖。
 - **Medium**：會員限定文章常常只有前幾段；全文讀不到就列候選並標「付費牆」。
 - **XDA／MakeUseOf／How-To Geek**：總 feed 量很大，大多是硬體或新聞；靠 scan 的關鍵字篩選，只打開第一人稱實測文。
-- **Qiita NotebookLM 標籤**：最新文停在 2026-09-07，開發者社群對這個主題的熱度已經降低；10 類改以英文消費科技媒體、Medium 和 note.com 為主。
+- **NotebookLM 已改名 Gemini Notebook（2026-07-16）**：v4.2 只查舊名，這是 10 類一直 0 則的主因之一（Qiita NotebookLM 標籤最新文停在 09-07）。現在新、舊名稱都查；新名稱的 Zenn／Qiita／DEV／Medium 標籤網址是推測的，第一次執行請看 scan 的 status，404 就停用。改名說明文很多，已列為負面訊號，不會排到前面。
 - **X／LinkedIn／YouTube／Discord**：只有在實際讀得到正文、日期與畫面時才使用。
 
 ## E. 翻譯對照（常見漏譯）

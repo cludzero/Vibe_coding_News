@@ -98,6 +98,15 @@ class ScanFeedsTest(unittest.TestCase):
         self.assertIn("11", mcp["cat_hints"])
         self.assertNotIn("08", mcp["cat_hints"])
 
+    def test_gemini_notebook_rename(self):
+        # 新名 Gemini Notebook 歸 10 類，不再被 07 的 notebook 吃掉；改名說明文被扣分
+        case = self.by_url["https://blog.example.com/gemini-notebook-sales"]
+        self.assertIn("10", case["cat_hints"])
+        self.assertNotIn("07", case["cat_hints"])
+        rename = self.by_url["https://news.example.com/rename"]
+        self.assertTrue(rename["negative_signals"])
+        self.assertGreater(case["score"], rename["score"])
+
     def test_dedupe_by_normalized_url(self):
         matches = [c for c in self.out["candidates"] if "resume-matcher" in c["url"]]
         self.assertEqual(len(matches), 1)

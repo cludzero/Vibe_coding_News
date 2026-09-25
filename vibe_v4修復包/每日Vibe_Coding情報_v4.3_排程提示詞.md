@@ -111,10 +111,12 @@ candidates_v4_YYYY-MM-DD.json 同時保留來源掃描摘要（入口 URL、排�
 | 07 資料分析／互動教材／產業 | 分析 Notebook、圖表、儀表板、互動教材或產業資料應用；資料性質、方法／程式碼、成果及核對。 | `data analysis with AI notebook results`；`built interactive lesson with AI`；`Streamlit app built with Claude`；`データ分析 生成AI やってみた` |
 | 08 Agent 開發可靠性 | 解決 Agent 的失敗、記憶、評估、恢復等問題；程式碼／配置、處理機制，以及實際執行紀錄、示範輸出或測試結果。不強制正式測試集。 | `agent eval results`；`agent failure postmortem`；`LLM agent retry memory benchmark`；`エージェント 評価 検証` |
 | 09 視覺與多媒體生成 | 圖卡、商品圖、插畫、資訊圖、影片、配音等成果；實際 prompt 或 workflow（例如 ComfyUI）、看得到的對應成品，以及用途。 | `ComfyUI workflow I made results`；`product photos AI pipeline before after`；`AI video workflow how I made`；`same prompt image model comparison`；`画像生成 作ってみた プロンプト` |
-| 10 NotebookLM 與 AI 研讀學習 | NotebookLM 優先，也收 Gemini、ChatGPT 學習模式、Deep Research、Obsidian＋AI、個人知識庫、閃卡；輸入來源、步驟、輸出及核對。用作者實際使用的產品名稱，不假定不同產品功能相同。 | `NotebookLM how I use`；`NotebookLM audio overview workflow`；`AI study workflow flashcards results`；`Obsidian AI second brain setup`；`NotebookLM 活用 やってみた` |
+| 10 Gemini Notebook（原 NotebookLM）與 AI 研讀學習 | Gemini Notebook 優先（包括 Gemini App 內同步的筆記本），也收 ChatGPT 學習模式、Deep Research、Obsidian＋AI、個人知識庫、閃卡；輸入來源、步驟、輸出及核對。改名後的新功能優先找：筆記本內建雲端電腦跑程式分析來源、互動總覽（測驗、閃卡、影片摘要）、即時對話、手機錄音。 | `"Gemini Notebook" how I`；`"Gemini Notebook" cloud computer data analysis`；`"Gemini Notebook" flashcards quiz workflow`；`NotebookLM workflow results`；`Gemini Notebook 使ってみた` |
 | 11 MCP／瀏覽器／電腦操作 | 連接系統後完成具體任務，或讓瀏覽器／電腦操作 Agent 完成並驗證結果；配置／程式碼／操作、任務、驗證及必要權限。 | `MCP server I built`；`Playwright MCP automation results`；`browser agent case study`；`MCP 作ってみた` |
 | 12 Skills／Plugins／可重用封裝 | Skills、Plugins、hooks、slash commands、GPTs／Gems 等可重用封裝，確實產生報告、簡報、教材、設計或測試成果；可讀的內容／配置和使用結果。 | `SKILL.md example output`；`Claude Code plugin I made`；`agent skills results`；`Skills 作ってみた` |
 | 13 業務場域實作 | 12 個業務場域各 1 則：從具體輸入經多步處理，交付報告、表格、文件、更新或處理結果；觸發方式、可重現的工作流／程式碼、實際輸出及核對。 | 見 §5.1 各場域種子 |
+
+**10 類的產品名稱。** Google 於 2026-07-16 把 NotebookLM 改名為 Gemini Notebook，兩者是同一個產品，舊筆記本和連結都沿用。搜尋時新、舊名稱都要查，因為許多作者和平台標籤仍用舊名；不要只用單字 `Notebook` 查詢，會混進 Jupyter Notebook 和筆電。卡片寫成「Gemini Notebook（原 NotebookLM）」；改名前的文章照原文寫 NotebookLM。更名說明文、「改了什麼」整理文和新聞稿不算實作案例。其他產品（ChatGPT 學習模式、Deep Research 等）用作者實際使用的名稱，不假定功能相同。
 
 **歸類原則。** 先問「這篇主要教讀者完成什麼」，不依工具名稱硬套。05 重點是可用的產品與建置；08 重點是 Agent 技術與可靠性測試；13 重點是特定業務場域的多步任務與交付。02／04 重點是用特定 coding 工具完成開發；03 重點是辦公交付物（不限工具）。11 重點是串接或瀏覽器操作；12 重點是可重用的封裝。工具只是其中一環時放在 tags。
 主類依核心貢獻決定，一案只計一次，不為填額搬類。有明確跨類關聯時，在零則類別的 category_notes 寫「主類 0 則；相關案例另見 XX 類〈標題〉」，不增加本類卡數，也不重複列卡。

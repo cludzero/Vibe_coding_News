@@ -5,7 +5,7 @@
 | 現象 | 數據 | 原因 |
 |---|---|---|
 | 滿 5 則的類別很少 | 兩天都只有 1/13（08 類） | 預算平均分給 13 類，已滿的 08 類仍持續搜尋；缺額類別沒拿到額外預算 |
-| 三個類別兩天都是 0 則 | 03 ChatGPT 辦公、09 圖像、10 NotebookLM | ① 分類綁死單一工具（09-24 的 Gemini Excel 案例因「不是 ChatGPT」被排除）；② 這三類原本靠 Reddit 補，但 Reddit 兩天都被 web_fetch 封鎖；③ Qiita NotebookLM 標籤最新文停在 09-07，開發者社群的熱度已經降低 |
+| 三個類別兩天都是 0 則 | 03 ChatGPT 辦公、09 圖像、10 NotebookLM | ① 分類綁死單一工具（09-24 的 Gemini Excel 案例因「不是 ChatGPT」被排除）；② 這三類原本靠 Reddit 補，但 Reddit 兩天都被 web_fetch 封鎖；③ **NotebookLM 已於 2026-07-16 改名為 Gemini Notebook**，v4.2 只用舊名查（Qiita NotebookLM 標籤最新文停在 09-07），改名後的新文章都查不到 |
 | 來源太集中在日文 | 兩天 19 則 NEW 中有 15 則（79%）來自 Qiita／Zenn，英文只有 Show HN／GitHub 零星幾則 | 提示詞列出的英文入口只有 HN、DEV（兩個 tag）和 Reddit；DEV 幾乎沒用到，Reddit 被擋 |
 | 查詢浪費在中文 | 每類都有一組中文種子 | 與「外國文章為主」的需求衝突，中文查詢又常回傳通用教學 |
 | 業務場域兩天都沒命中 | 優先場域 6/7/8、9/10/11 都沒有新案例 | 場域案例很少出現在 Claude Code 的 feed；而且 168h 對特定場域來說太短，13 類只好用開發流程自動化補位 |
@@ -19,10 +19,10 @@
 | 03 類 | ChatGPT 辦公研究資料 | **AI 辦公與研究交付物（不限工具）**：ChatGPT、Claude、Gemini、Copilot、Excel／Sheets 內建 AI、Deep Research |
 | 04 類 | Codex 開發測試部署 | **Codex 與其他 Coding Agent**：加入 Cursor、Copilot agent、Gemini CLI、Jules、Cline、OpenCode、Aider 等 |
 | 09 類 | 圖像圖文視覺 | **視覺與多媒體生成**：加入影片、配音、ComfyUI workflow |
-| 10 類 | NotebookLM／Gemini Notebook | **NotebookLM 與 AI 研讀學習**：NotebookLM 仍優先，另收 Deep Research、學習模式、Obsidian＋AI、個人知識庫 |
+| 10 類 | NotebookLM／Gemini Notebook | **Gemini Notebook（原 NotebookLM）與 AI 研讀學習**：新、舊名稱都查（不用單字 Notebook，避免混進 Jupyter）；優先找改名後的新功能（雲端電腦分析、互動總覽、閃卡測驗）；改名說明文列為負面訊號；另收 Deep Research、學習模式、Obsidian＋AI、個人知識庫 |
 | 11／12 類 | MCP／瀏覽器；Skills／Plugins | 11 加入電腦操作 Agent；12 加入 hooks、slash commands、GPTs／Gems |
 | 13 類 | 真實任務自動化，最多 5 則，每天輪 3 個優先場域 | **業務場域實作：12 場域各 1 則，最多 12 則**；場域窗口 30 天；空場域優先，每天輪 4 個；12 場域的範圍放寬（例如財報加入發票、醫療加入健康資料）；種子改成英文＋日文 |
-| 來源 | 約 10 個入口 | **76 個啟用入口（英文 55、日文 21）**：HN Algolia 主題查詢、DEV 16 個 tag、Medium 7 個 tag、Cursor 論壇、n8n「Built with n8n」、Streamlit、Lobsters、Simon Willison 等個人部落格、XDA／MakeUseOf／How-To Geek 第一人稱實測、GitHub topic、Zenn／Qiita 擴充 |
+| 來源 | 約 10 個入口 | **81 個啟用入口（英文 58、日文 23）**：HN Algolia 主題查詢、DEV 16 個 tag、Medium 7 個 tag、Cursor 論壇、n8n「Built with n8n」、Streamlit、Lobsters、Simon Willison 等個人部落格、XDA／MakeUseOf／How-To Geek 第一人稱實測、GitHub topic、Zenn／Qiita 擴充 |
 | 採集方式 | 逐個 web_fetch | **`scan_feeds_v43.py` 一次掃完**（日期初篩＋成果訊號打分＋類別與場域線索），只把前 40 名交給模型判斷；Python 不能連網時才改用 web_fetch 讀「核心 15 來源」 |
 | 預算 | 13 類平均分 | 已滿 5 則的類別停止搜尋；來源連續兩輪受阻就略過，每三天重試一次；Reddit 預設停用 |
 | 來源類型 | 未規範 | 媒體第一人稱實測可收；廠商示範要有實際輸入和輸出；SEO 清單文一律排除；Medium 付費牆文章列候選 |
@@ -53,7 +53,7 @@ tests/                                     ← 掃描器離線測試（file:// f
 python -m unittest discover -s tests
 ```
 
-11 項測試涵蓋：RSS／Atom／HN／Qiita API／Discourse 解析、168h 與 720h 窗口、HTML 外殼偵測、URL 去重、字邊界比對（retrieval 不會誤中 eval）、正式來源設定檔的結構。
+12 項測試涵蓋：RSS／Atom／HN／Qiita API／Discourse 解析、168h 與 720h 窗口、HTML 外殼偵測、URL 去重、字邊界比對（retrieval 不會誤中 eval）、Gemini Notebook 新名歸類與改名說明文扣分、正式來源設定檔的結構。
 
 ## 6. 仍需留意
 
